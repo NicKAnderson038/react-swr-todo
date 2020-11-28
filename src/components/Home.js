@@ -1,9 +1,24 @@
-import { Box, Button, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  makeStyles,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  withStyles,
+} from '@material-ui/core'
+import { Link } from 'wouter'
+import DeleteIcon from '@material-ui/icons/Delete'
 import { isUndefined } from 'lodash'
-import axios from 'axios';
-import React from 'react';
-import useSWR, { mutate, trigger } from 'swr';
+import axios from 'axios'
+import React from 'react'
+import { v4 } from 'uuid'
+import useSWR, { mutate, trigger } from 'swr'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -13,49 +28,89 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
-}))(TableCell);
+}))(TableCell)
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
+    '&:hover, &:focus': {
+      backgroundColor: '#5b67f37d',
+    },
   },
-}))(TableRow);
+}))(TableRow)
 
-const Home = ({commentsFromServer }) => {
-  const {data} = useSWR('/comments', { initialData: commentsFromServer});
-  
+// text-decoration: none;
+const useStyles = makeStyles({
+  link: {
+    textDecoration: 'none',
+  },
+  text: {
+    fontFamily: 'bungee',
+    fontWeight: 300,
+  },
+})
+
+const Home = ({ commentsFromServer }) => {
+  const { data } = useSWR('/comments', { initialData: commentsFromServer })
+  const classes = useStyles()
+
   return (
-    <>
+    <Box marginTop={2}>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell>Id</StyledTableCell>
-              <StyledTableCell>Comment</StyledTableCell>
-              <StyledTableCell align="right">Actions</StyledTableCell>
+              <StyledTableCell className={classes.text}>Id</StyledTableCell>
+              <StyledTableCell className={classes.text}>
+                Comment
+              </StyledTableCell>
+              <StyledTableCell className={classes.text} align="right">
+                Actions
+              </StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {data?.map(row => (
-              <StyledTableRow key={row.comment}>
-                <StyledTableCell component="th" scope="row">
-                    {isUndefined(row.id) && <CircularProgress size={15}/>}
-                  {row.id}
-                </StyledTableCell>
-                <StyledTableCell>{row.comment}</StyledTableCell>
+            {data?.map((row) => (
+              <StyledTableRow key={v4()}>
+                <Link
+                  className={classes.link}
+                  to={isUndefined(row.id) ? '/' : `/user/${row.id}`}
+                >
+                  <StyledTableCell
+                    component="th"
+                    scope="row"
+                    className={classes.text}
+                  >
+                    {isUndefined(row.id) && <CircularProgress size={15} />}
+                    {row.id}
+                  </StyledTableCell>
+                </Link>
+                <Link
+                  className={classes.link}
+                  to={isUndefined(row.id) ? '/' : `/user/${row.id}`}
+                >
+                  <StyledTableCell className={classes.text}>
+                    {row.comment}
+                  </StyledTableCell>
+                </Link>
                 <StyledTableCell align="right">
                   <Button
                     variant="contained"
                     color="secondary"
+                    className={classes.text}
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      const deleteUrl = '/comments/'+row.id;
-                      const url = '/comments';
-                      mutate(url, data.filter(c => c.id !== row.id), false);
-                      await axios.delete(deleteUrl);
-                      trigger(url);
+                      const deleteUrl = '/comments/' + row.id
+                      const url = '/comments'
+                      mutate(
+                        url,
+                        data.filter((c) => c.id !== row.id),
+                        false
+                      )
+                      await axios.delete(deleteUrl)
+                      trigger(url)
                     }}
                   >
                     Delete
@@ -66,12 +121,11 @@ const Home = ({commentsFromServer }) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
-  );
+    </Box>
+  )
 }
 
-
-Home.getInitialProps = async ctx => {
+Home.getInitialProps = async (ctx) => {
   const res = await axios('/comments')
   const json = res.data
   return { commentsFromServer: json }
