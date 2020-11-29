@@ -46,7 +46,7 @@ export function AddComment() {
             if (IS_LOCAL_JSON) {
               await postRequest({ values, storeValue: data, urlKey: API })
             } else {
-              alert('REST: POST')
+              alert(`POST: ${values.comment}`)
             }
             formikHelpers.resetForm()
           }}

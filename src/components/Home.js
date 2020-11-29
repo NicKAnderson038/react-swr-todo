@@ -121,7 +121,7 @@ const Home = ({ commentsFromServer }) => {
                           urlKey: API,
                         })
                       } else {
-                        alert('REST: DELETE')
+                        alert(`DELETE ID: ${row.id}`)
                       }
                     }}
                   >
