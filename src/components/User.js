@@ -48,7 +48,7 @@ export function User({ id }) {
     <div className={classes.root}>
       <br />
       <Fab color="primary" aria-label="Add">
-        <Link to="/">
+        <Link to="/react-swr-todo/">
           {' '}
           <HomeIcon style={{ color: 'white' }} />
         </Link>

@@ -78,7 +78,7 @@ const Home = ({ commentsFromServer }) => {
               <StyledTableRow key={v4()}>
                 <Link
                   className={classes.link}
-                  to={isUndefined(row.id) ? '/' : `/user/${row.id}`}
+                  to={isUndefined(row.id) ? '/react-swr-todo/' : `/react-swr-todo/user/${row.id}`}
                 >
                   <StyledTableCell
                     component="th"
@@ -91,7 +91,7 @@ const Home = ({ commentsFromServer }) => {
                 </Link>
                 <Link
                   className={classes.link}
-                  to={isUndefined(row.id) ? '/' : `/user/${row.id}`}
+                  to={isUndefined(row.id) ? '/react-swr-todo/' : `/react-swr-todo/user/${row.id}`}
                 >
                   <StyledTableCell className={classes.text}>
                     {row.comment}

@@ -36,11 +36,11 @@ function App() {
       <SWRConfig value={{ fetcher: (url) => axios(url).then((r) => r.data) }}>
         <Container maxWidth={false}>
           <Switch>
-            <Route path="/">
+            <Route path="/react-swr-todo/">
               <AddComment />
               <Home />
             </Route>
-            <Route path="/user/:id">
+            <Route path="/react-swr-todo/user/:id">
               {(params) => <User id={params.id} />}
             </Route>
             <Route>404, Not Found!</Route>
