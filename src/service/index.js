@@ -53,3 +53,27 @@ const useRequest = {
 }
 
 export default useRequest
+
+// let useRequest = {
+//   post: (data) => postRequest(data),
+//   delete: (data) => deleteRequest(data),
+//   optomisticApi: true,
+// }
+
+// useRequest = {
+//   ...Object.keys(useRequest).reduce((acc, value) => {
+//     if (value !== 'post' && value !== 'delete') {
+//       acc[value] = {
+//         post: new Function(
+//           `(data) => postRequest({ ...data, ${value}: ${useRequest[value]} })`
+//         ),
+//         delete: new Function(
+//           `(data) => deleteRequest({ ...data, ${value}: ${useRequest[value]} })`
+//         ),
+//       }
+//     } else {
+//       acc[value] = useRequest[value]
+//     }
+//     return acc
+//   }, {}),
+// }
