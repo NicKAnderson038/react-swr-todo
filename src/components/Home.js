@@ -20,7 +20,7 @@ import React from 'react'
 import { v4 } from 'uuid'
 import useSWR from 'swr'
 import { API, baseRoute, IS_LOCAL_JSON } from '../constant'
-import { deleteRequestOptomisticApi } from '../service'
+import useRequest from '../service'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -115,7 +115,7 @@ const Home = ({ commentsFromServer }) => {
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
                       if (IS_LOCAL_JSON) {
-                        await deleteRequestOptomisticApi({
+                        await useRequest.deleteOptomisticApi({
                           values: row.id,
                           storeValue: my_data,
                           urlKey: API,

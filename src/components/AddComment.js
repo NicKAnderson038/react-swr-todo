@@ -10,7 +10,7 @@ import { loremIpsum } from 'lorem-ipsum'
 import React from 'react'
 import useSWR from 'swr'
 import { API, IS_LOCAL_JSON } from '../constant'
-import { postRequestOptomisticApi } from '../service'
+import useRequest from '../service'
 
 const useStyles = makeStyles({
   text: {
@@ -46,7 +46,7 @@ export function AddComment() {
           onSubmit={async (values, formikHelpers) => {
             values.body = lorem()
             if (IS_LOCAL_JSON) {
-              await postRequestOptomisticApi({
+              await useRequest.postOptomisticApi({
                 values,
                 storeValue: my_data,
                 urlKey: API,

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { mutate, trigger } from 'swr'
 
-export async function postRequest({
+async function postRequest({
   values,
   storeValue,
   urlKey,
@@ -13,10 +13,7 @@ export async function postRequest({
   if (refetch) trigger(urlKey)
 }
 
-export const postRequestOptomisticApi = async (data) =>
-  await postRequest({ ...data, optomisticApi: true })
-
-export async function deleteRequest({
+async function deleteRequest({
   values,
   storeValue,
   urlKey,
@@ -32,5 +29,11 @@ export async function deleteRequest({
   if (refetch) trigger(urlKey)
 }
 
-export const deleteRequestOptomisticApi = async (data) =>
-  await deleteRequest({ ...data, optomisticApi: true })
+const useRequest = {
+  post: data => postRequest(data),
+  postOptomisticApi : data => postRequest({ ...data, optomisticApi: true }),
+  delete: data => deleteRequest(data),
+  deleteOptomisticApi : data => deleteRequest({ ...data, optomisticApi: true })
+}
+
+export default useRequest
