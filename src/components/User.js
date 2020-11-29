@@ -13,7 +13,9 @@ import HomeIcon from '@material-ui/icons/Home'
 import React from 'react'
 import useSWR from 'swr'
 
-const API = process.env.NODE_ENV === 'development' ? '/comments' : ''
+const API = process.env.NODE_ENV === 'development' ? '/comments' : '/db.json'
+const baseRoute =
+  process.env.NODE_ENV === 'development' ? '/' : '/react-swr-todo/'
 
 const useStyles = makeStyles({
   root: {
@@ -48,7 +50,7 @@ export function User({ id }) {
     <div className={classes.root}>
       <br />
       <Fab color="primary" aria-label="Add">
-        <Link to="/react-swr-todo/">
+        <Link to={baseRoute}>
           {' '}
           <HomeIcon style={{ color: 'white' }} />
         </Link>

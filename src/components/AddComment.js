@@ -11,7 +11,7 @@ import { loremIpsum } from 'lorem-ipsum'
 import React from 'react'
 import useSWR, { mutate, trigger } from 'swr'
 
-const API = process.env.NODE_ENV === 'development' ? '/comments' : ''
+const API = process.env.NODE_ENV === 'development' ? '/comments' : '/db.json'
 
 const useStyles = makeStyles({
   text: {

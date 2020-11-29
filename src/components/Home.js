@@ -20,7 +20,9 @@ import React from 'react'
 import { v4 } from 'uuid'
 import useSWR, { mutate, trigger } from 'swr'
 
-const API = process.env.NODE_ENV === 'development' ? '/comments' : ''
+const API = process.env.NODE_ENV === 'development' ? '/comments' : '/db.json'
+const baseRoute =
+  process.env.NODE_ENV === 'development' ? '/' : '/react-swr-todo/'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -78,7 +80,7 @@ const Home = ({ commentsFromServer }) => {
               <StyledTableRow key={v4()}>
                 <Link
                   className={classes.link}
-                  to={isUndefined(row.id) ? '/react-swr-todo/' : `/react-swr-todo/user/${row.id}`}
+                  to={isUndefined(row.id) ? baseRoute : `${baseRoute}user/${row.id}`}
                 >
                   <StyledTableCell
                     component="th"
@@ -91,7 +93,7 @@ const Home = ({ commentsFromServer }) => {
                 </Link>
                 <Link
                   className={classes.link}
-                  to={isUndefined(row.id) ? '/react-swr-todo/' : `/react-swr-todo/user/${row.id}`}
+                  to={isUndefined(row.id) ? baseRoute : `${baseRoute}user/${row.id}`}
                 >
                   <StyledTableCell className={classes.text}>
                     {row.comment}
