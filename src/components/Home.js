@@ -20,6 +20,8 @@ import React from 'react'
 import { v4 } from 'uuid'
 import useSWR, { mutate, trigger } from 'swr'
 
+const API = process.env.NODE_ENV === 'development' ? '/comments' : ''
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#555454',
@@ -53,7 +55,7 @@ const useStyles = makeStyles({
 })
 
 const Home = ({ commentsFromServer }) => {
-  const { data } = useSWR('/comments', { initialData: commentsFromServer })
+  const { data } = useSWR(API, { initialData: commentsFromServer })
   const classes = useStyles()
 
   return (

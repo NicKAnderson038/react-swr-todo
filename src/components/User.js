@@ -13,6 +13,8 @@ import HomeIcon from '@material-ui/icons/Home'
 import React from 'react'
 import useSWR from 'swr'
 
+const API = process.env.NODE_ENV === 'development' ? '/comments' : ''
+
 const useStyles = makeStyles({
   root: {
     justifyContent: 'center',
@@ -38,7 +40,7 @@ const useStyles = makeStyles({
 })
 
 export function User({ id }) {
-  const { data } = useSWR('/comments')
+  const { data } = useSWR(API)
   const classes = useStyles()
   const res = data?.filter((d) => `${d.id}` === id).pop()
 

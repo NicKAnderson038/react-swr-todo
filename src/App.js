@@ -1,5 +1,5 @@
 import { Route, Switch } from 'wouter'
-import { Box, Container, CssBaseline } from '@material-ui/core'
+import { Container, CssBaseline } from '@material-ui/core'
 import red from '@material-ui/core/colors/red'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import axios from 'axios'
@@ -9,7 +9,7 @@ import AddComment from './components/AddComment'
 import User from './components/User'
 import './App.css'
 
-axios.defaults.baseURL = 'http://localhost:4001'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4001' : 'https://github.com/NicKAnderson038/react-swr-todo/db.json'
 
 export const theme = createMuiTheme({
   palette: {
