@@ -12,7 +12,7 @@ import { isUndefined } from 'lodash'
 import HomeIcon from '@material-ui/icons/Home'
 import React from 'react'
 import useSWR from 'swr'
-import { API, baseRoute, IS_LOCAL_JSON} from '../constant'
+import { API, baseRoute, IS_LOCAL_JSON } from '../constant'
 
 const useStyles = makeStyles({
   root: {
@@ -34,14 +34,16 @@ const useStyles = makeStyles({
     textDecoration: 'none',
   },
   loader: {
-      display: 'inline'
-  }
+    display: 'inline',
+  },
 })
 
 export function User({ id }) {
   const { data } = useSWR(API)
   const classes = useStyles()
-  const res = IS_LOCAL_JSON ? data?.filter((d) => `${d.id}` === id).pop() : data?.comments.filter((d) => `${d.id}` === id).pop()
+  const res = IS_LOCAL_JSON
+    ? data?.filter((d) => `${d.id}` === id).pop()
+    : data?.comments.filter((d) => `${d.id}` === id).pop()
 
   return (
     <div className={classes.root}>

@@ -80,7 +80,11 @@ const Home = ({ commentsFromServer }) => {
               <StyledTableRow key={v4()}>
                 <Link
                   className={classes.link}
-                  to={isUndefined(row.id) ? baseRoute : `${baseRoute}user/${row.id}`}
+                  to={
+                    isUndefined(row.id)
+                      ? baseRoute
+                      : `${baseRoute}user/${row.id}`
+                  }
                 >
                   <StyledTableCell
                     component="th"
@@ -93,7 +97,11 @@ const Home = ({ commentsFromServer }) => {
                 </Link>
                 <Link
                   className={classes.link}
-                  to={isUndefined(row.id) ? baseRoute : `${baseRoute}user/${row.id}`}
+                  to={
+                    isUndefined(row.id)
+                      ? baseRoute
+                      : `${baseRoute}user/${row.id}`
+                  }
                 >
                   <StyledTableCell className={classes.text}>
                     {row.comment}
@@ -106,10 +114,18 @@ const Home = ({ commentsFromServer }) => {
                     className={classes.text}
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      await deleteRequest({values: row.id, storeValue: my_data, urlKey: API})
+                      if (IS_LOCAL_JSON) {
+                        await deleteRequest({
+                          values: row.id,
+                          storeValue: my_data,
+                          urlKey: API,
+                        })
+                      } else {
+                        alert('REST: DELETE')
+                      }
                     }}
                   >
-                  {/* <Button
+                    {/* <Button
                     variant="contained"
                     color="secondary"
                     className={classes.text}

@@ -9,7 +9,7 @@ import { Field, Form, Formik } from 'formik'
 import { loremIpsum } from 'lorem-ipsum'
 import React from 'react'
 import useSWR from 'swr'
-import { API } from '../constant'
+import { API, IS_LOCAL_JSON } from '../constant'
 import { postRequest } from '../service'
 
 const useStyles = makeStyles({
@@ -43,12 +43,15 @@ export function AddComment() {
           initialValues={{ comment: '' }}
           onSubmit={async (values, formikHelpers) => {
             values.body = lorem()
-            await postRequest({values, storeValue: data, urlKey: API})
-            // await postRequest(values, data)
+            if (IS_LOCAL_JSON) {
+              await postRequest({ values, storeValue: data, urlKey: API })
+            } else {
+              alert('REST: POST')
+            }
             formikHelpers.resetForm()
           }}
         >
-        {/* <Formik
+          {/* <Formik
           initialValues={{ comment: '' }}
           onSubmit={async (values, formikHelpers) => {
             values.body = lorem()
