@@ -18,8 +18,9 @@ import { isUndefined } from 'lodash'
 import axios from 'axios'
 import React from 'react'
 import { v4 } from 'uuid'
-import useSWR, { mutate, trigger } from 'swr'
+import useSWR from 'swr'
 import { API, baseRoute } from '../constant'
+import { deleteRequest } from '../service'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -103,6 +104,15 @@ const Home = ({ commentsFromServer }) => {
                     className={classes.text}
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
+                      await deleteRequest(row.id, data)
+                    }}
+                  >
+                  {/* <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.text}
+                    startIcon={<DeleteIcon />}
+                    onClick={async () => {
                       const deleteUrl = '/comments/' + row.id
                       const url = '/comments'
                       mutate(
@@ -113,7 +123,7 @@ const Home = ({ commentsFromServer }) => {
                       await axios.delete(deleteUrl)
                       trigger(url)
                     }}
-                  >
+                  > */}
                     Delete
                   </Button>
                 </StyledTableCell>

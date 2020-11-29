@@ -5,12 +5,12 @@ import {
   TextField,
   makeStyles,
 } from '@material-ui/core'
-import axios from 'axios'
 import { Field, Form, Formik } from 'formik'
 import { loremIpsum } from 'lorem-ipsum'
 import React from 'react'
-import useSWR, { mutate, trigger } from 'swr'
+import useSWR from 'swr'
 import { API } from '../constant'
+import { postRequest } from '../service'
 
 const useStyles = makeStyles({
   text: {
@@ -39,8 +39,15 @@ export function AddComment() {
     <Box marginTop={2}>
       <div>
         <span className={classes.text}>Number Of Comments: {data?.length}</span>
-
         <Formik
+          initialValues={{ comment: '' }}
+          onSubmit={async (values, formikHelpers) => {
+            values.body = lorem()
+            await postRequest(values, data)
+            formikHelpers.resetForm()
+          }}
+        >
+        {/* <Formik
           initialValues={{ comment: '' }}
           onSubmit={async (values, formikHelpers) => {
             values.body = lorem()
@@ -49,7 +56,7 @@ export function AddComment() {
             trigger(API)
             formikHelpers.resetForm()
           }}
-        >
+        > */}
           <Form>
             <FormGroup>
               <Field
