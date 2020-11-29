@@ -2,6 +2,7 @@ import axios from 'axios'
 import { mutate, trigger } from 'swr'
 import { API } from '../constant'
 
+
 export async function postRequest(values, store, notOptomisticApi = false) {
   mutate(API, [...store, values], notOptomisticApi)
   await axios.post(API, values)
