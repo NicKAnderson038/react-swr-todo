@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 export function User({ id }) {
   const { data } = useSWR(API)
   const classes = useStyles()
-  const res = data?.filter((d) => `${d.id}` === id).pop()
+  const res = IS_LOCAL_JSON ? data?.filter((d) => `${d.id}` === id).pop() : data?.comments.filter((d) => `${d.id}` === id).pop()
 
   return (
     <div className={classes.root}>
