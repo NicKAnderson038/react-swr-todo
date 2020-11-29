@@ -120,7 +120,7 @@ const Home = ({ commentsFromServer }) => {
                           storeValue: my_data,
                           urlKey: API,
                           refetch: true,
-                        }).hard
+                        })
                       } else {
                         alert(`DELETE ID: ${row.id}`)
                       }
