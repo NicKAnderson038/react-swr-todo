@@ -48,12 +48,11 @@ export function User({ id }) {
   return (
     <div className={classes.root}>
       <br />
-      <Fab color="primary" aria-label="Add">
-        <Link to={baseRoute}>
-          {' '}
+      <Link to={baseRoute}>
+        <Fab color="primary" aria-label="Add">
           <HomeIcon style={{ color: 'white' }} />
-        </Link>
-      </Fab>
+        </Fab>
+      </Link>
       <br />
       <br />
       <Card className={classes.card}>
