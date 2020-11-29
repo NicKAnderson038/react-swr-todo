@@ -106,7 +106,7 @@ const Home = ({ commentsFromServer }) => {
                     className={classes.text}
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      await deleteRequest(row.id, my_data)
+                      await deleteRequest({values: row.id, storeValue: my_data, urlKey: API})
                     }}
                   >
                   {/* <Button

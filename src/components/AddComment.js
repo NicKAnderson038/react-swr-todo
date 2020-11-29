@@ -43,7 +43,8 @@ export function AddComment() {
           initialValues={{ comment: '' }}
           onSubmit={async (values, formikHelpers) => {
             values.body = lorem()
-            await postRequest(values, data)
+            await postRequest({values, storeValue: data, urlKey: API})
+            // await postRequest(values, data)
             formikHelpers.resetForm()
           }}
         >
