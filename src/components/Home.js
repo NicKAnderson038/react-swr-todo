@@ -19,10 +19,7 @@ import axios from 'axios'
 import React from 'react'
 import { v4 } from 'uuid'
 import useSWR, { mutate, trigger } from 'swr'
-
-const API = process.env.NODE_ENV === 'development' ? '/comments' : '/db.json'
-const baseRoute =
-  process.env.NODE_ENV === 'development' ? '/' : '/react-swr-todo/'
+import { API, baseRoute } from '../constant'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {

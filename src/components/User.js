@@ -12,10 +12,7 @@ import { isUndefined } from 'lodash'
 import HomeIcon from '@material-ui/icons/Home'
 import React from 'react'
 import useSWR from 'swr'
-
-const API = process.env.NODE_ENV === 'development' ? '/comments' : '/db.json'
-const baseRoute =
-  process.env.NODE_ENV === 'development' ? '/' : '/react-swr-todo/'
+import { API, baseRoute } from '../constant'
 
 const useStyles = makeStyles({
   root: {

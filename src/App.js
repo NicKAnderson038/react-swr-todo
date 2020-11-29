@@ -1,4 +1,4 @@
-import { Router, Route, Switch } from 'wouter'
+import { Route, Switch } from 'wouter'
 import { Container, CssBaseline } from '@material-ui/core'
 import red from '@material-ui/core/colors/red'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
@@ -7,15 +7,10 @@ import { SWRConfig } from 'swr'
 import Home from './components/Home'
 import AddComment from './components/AddComment'
 import User from './components/User'
+import { AXIOS_BASE_URL, baseRoute } from './constant'
 import './App.css'
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4001'
-    : 'https://github.com/NicKAnderson038/react-swr-todo'
-
-const baseRoute =
-  process.env.NODE_ENV === 'development' ? '/' : '/react-swr-todo/'
+axios.defaults.baseURL = AXIOS_BASE_URL
 
 export const theme = createMuiTheme({
   palette: {
@@ -32,10 +27,6 @@ export const theme = createMuiTheme({
 })
 
 function App() {
-  const route = {
-    AddComment,
-    Home,
-  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

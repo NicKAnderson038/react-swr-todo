@@ -10,8 +10,7 @@ import { Field, Form, Formik } from 'formik'
 import { loremIpsum } from 'lorem-ipsum'
 import React from 'react'
 import useSWR, { mutate, trigger } from 'swr'
-
-const API = process.env.NODE_ENV === 'development' ? '/comments' : '/db.json'
+import { API } from '../constant'
 
 const useStyles = makeStyles({
   text: {
