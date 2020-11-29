@@ -46,16 +46,18 @@ export function AddComment() {
           onSubmit={async (values, formikHelpers) => {
             values.body = lorem()
             if (IS_LOCAL_JSON) {
-              await useRequest.postOptomisticApi({
+              const { success } = await useRequest.postOptomisticApi({
                 values,
                 storeValue: my_data,
                 urlKey: API,
                 refetch: true,
               })
+
+              if(success) formikHelpers.resetForm()
             } else {
               alert(`POST: ${values.comment}`)
+              formikHelpers.resetForm()
             }
-            formikHelpers.resetForm()
           }}
         >
           {/* <Formik

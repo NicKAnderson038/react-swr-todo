@@ -8,9 +8,23 @@ async function postRequest({
   optomisticApi = false,
   refetch = false,
 }) {
-  mutate(urlKey, [...storeValue, values], !optomisticApi)
-  await axios.post(urlKey, values)
-  if (refetch) trigger(urlKey)
+  try {
+    mutate(urlKey, [...storeValue, values], !optomisticApi)
+    await axios.post(urlKey, values)
+    if (refetch) trigger(urlKey)
+    return {
+      success: true,
+    }
+  } catch (error) {
+    // mutate(
+    //   urlKey,
+    //   storeValue.filter((c) => c.id !== values.id),
+    //   !optomisticApi
+    // )
+    return {
+      success: false,
+    }
+  }
 }
 
 async function deleteRequest({
@@ -30,10 +44,11 @@ async function deleteRequest({
 }
 
 const useRequest = {
-  post: data => postRequest(data),
-  postOptomisticApi : data => postRequest({ ...data, optomisticApi: true }),
-  delete: data => deleteRequest(data),
-  deleteOptomisticApi : data => deleteRequest({ ...data, optomisticApi: true })
+  post: (data) => postRequest(data),
+  postOptomisticApi: (data) => postRequest({ ...data, optomisticApi: true }),
+  delete: (data) => deleteRequest(data),
+  deleteOptomisticApi: (data) =>
+    deleteRequest({ ...data, optomisticApi: true }),
 }
 
 export default useRequest
