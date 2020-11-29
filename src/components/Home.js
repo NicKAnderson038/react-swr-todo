@@ -115,12 +115,12 @@ const Home = ({ commentsFromServer }) => {
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
                       if (IS_LOCAL_JSON) {
-                        await useRequest.deleteOptomisticApi({
+                        await useRequest.optomisticApi.delete({
                           values: row.id,
                           storeValue: my_data,
                           urlKey: API,
                           refetch: true,
-                        })
+                        }).hard
                       } else {
                         alert(`DELETE ID: ${row.id}`)
                       }

@@ -45,10 +45,11 @@ async function deleteRequest({
 
 const useRequest = {
   post: (data) => postRequest(data),
-  postOptomisticApi: (data) => postRequest({ ...data, optomisticApi: true }),
   delete: (data) => deleteRequest(data),
-  deleteOptomisticApi: (data) =>
-    deleteRequest({ ...data, optomisticApi: true }),
+  optomisticApi: {
+    post: (data) => postRequest({ ...data, optomisticApi: true }),
+    delete: (data) => deleteRequest({ ...data, optomisticApi: true }),
+  },
 }
 
 export default useRequest
