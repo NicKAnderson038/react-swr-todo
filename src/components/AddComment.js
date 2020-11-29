@@ -35,10 +35,12 @@ export function AddComment() {
   const { data } = useSWR(API)
   const classes = useStyles()
 
+  const my_data = IS_LOCAL_JSON ? data : data?.comments
+
   return (
     <Box marginTop={2}>
       <div>
-        <span className={classes.text}>Number Of Comments: {data?.length}</span>
+        <span className={classes.text}>Number Of Comments: {my_data?.length}</span>
         <Formik
           initialValues={{ comment: '' }}
           onSubmit={async (values, formikHelpers) => {
@@ -46,7 +48,7 @@ export function AddComment() {
             if (IS_LOCAL_JSON) {
               await postRequestOptomisticApi({
                 values,
-                storeValue: data,
+                storeValue: my_data,
                 urlKey: API,
                 refetch: true,
               })
