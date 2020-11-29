@@ -19,7 +19,7 @@ import axios from 'axios'
 import React from 'react'
 import { v4 } from 'uuid'
 import useSWR from 'swr'
-import { API, baseRoute } from '../constant'
+import { API, baseRoute, IS_LOCAL_JSON } from '../constant'
 import { deleteRequest } from '../service'
 
 const StyledTableCell = withStyles((theme) => ({
@@ -58,6 +58,8 @@ const Home = ({ commentsFromServer }) => {
   const { data } = useSWR(API, { initialData: commentsFromServer })
   const classes = useStyles()
 
+  const my_data = IS_LOCAL_JSON ? data : data?.comments
+
   return (
     <Box marginTop={2}>
       <TableContainer component={Paper}>
@@ -74,7 +76,7 @@ const Home = ({ commentsFromServer }) => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {data?.map((row) => (
+            {my_data?.map((row) => (
               <StyledTableRow key={v4()}>
                 <Link
                   className={classes.link}
@@ -104,7 +106,7 @@ const Home = ({ commentsFromServer }) => {
                     className={classes.text}
                     startIcon={<DeleteIcon />}
                     onClick={async () => {
-                      await deleteRequest(row.id, data)
+                      await deleteRequest(row.id, my_data)
                     }}
                   >
                   {/* <Button

@@ -8,3 +8,5 @@ export const AXIOS_BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4001'
     : 'https://raw.githubusercontent.com/NicKAnderson038/react-swr-todo/gh-pages'
+
+export const IS_LOCAL_JSON = process.env.NODE_ENV === 'development'
